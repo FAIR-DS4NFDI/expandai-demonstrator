@@ -10,6 +10,32 @@ The goal of this demonstrator is a secure and legally compliant method to collec
 
 At the core of this project is a data integration center, which gathers and standardizes Parkinson patient data from a smartphone (iPhone 12 Pro Max) and smartwatch (Apple Watch Series 8). AI analytics within the center enable near real-time data insights, supporting Parkinson healthcare professionals and researchers in decision-making and advancing medical research. Our prototype proposes a framework for secure data exchange between scientific institutions and industry partners. This collaboration can empower healthcare providers to monitor Parkinson patient health using a simple traffic light system to indicate their condition: green for well, yellow for unwell but not critical, and red for emergencies. This system will be accessible via a web platform for doctors, providing valuable insights while minimizing data sharing. Moreover, limited access to these databases for companies developing DiGAs could enhance AI model training and product development, ultimately advancing personalized healthcare and improving patient outcomes.
 
+## DiGA Overview:
+
+DiGA (Digitale Gesundheitsanwendung, or “Digital Health Application”) is a certified digital tool in Germany designed to help patients manage, treat, or prevent medical conditions.
+
+- Medical Purpose:
+  DiGAs are intended for the diagnosis, treatment or prevention of diseases. Examples include apps for managing diabetes, mental health disorders, chronic pain, or Parkinson.
+- Regulatory Approval:
+  To qualify as a DiGA, the app must be approved by Germany’s Federal Institute for Drugs and Medical Devices. This ensures the app meets strict criteria for quality, safety, and data protection.
+- Evidence-Based:
+  DiGAs must demonstrate measurable positive effects through scientific studies.
+- Reimbursement by Health Insurers:
+  Once approved, DiGAs can be prescribed by doctors and are paid by health insurance providers in Germany. Which is very profitable for companies.
+
+## Usefull links:
+
+- [Wiki](https://fair-ds4nfdi.github.io/wiki/expandAI.html)
+- [App production](https://fit-ds-6bbf0eea348a.herokuapp.com/?sort=id,asc)
+- [Architecture](https://app.diagrams.net/#Hrobertp1994%2Ffair-ds-diga%2Fmain%2FdigaC4.drawio)
+- [CI/CD](https://github.com/robertp1994/fair-ds-diga/actions)
+- [Other documentation](.documentation/)
+
+## Data
+
+We used only data generated using GAN (Generative Adversarial Network).
+We did not utilize any real patient data, but it was inspired by project ParkProReakt that we also worked on.
+
 ## Dashboard
 
 The dashboard provides a clear, organized interface for displaying both results and finger-tap data, offering insights
@@ -23,17 +49,32 @@ status with an intuitive red-yellow-green scheme.
 
 ![ ExpandAI Demonstrator Dashboard](./.documentation/assets/DiGA_graf.png)
 
+## Data Integration Center
+
+<img alt="ExpandAI Demonstrator" src="./.documentation/assets/data_integration_center.png" />
+
+## Role of EDC
+
+The Eclipse Dataspace Connector EDC powered by Sovity enables secure compliant and FAIR data exchange for Parkinson’s healthcare data collected from smartphones and smartwatches It facilitates data discovery policy enforcement and secure transfer adhering to GDPR and ethical standards
+
+Key features include data discovery where patient health metrics such as UPDRS and MoCA are made discoverable as metadata in the EDC catalog policy management which defines access rules to control who can use the data and under what conditions enabling controlled access for AI training research and clinical decisions and secure data transfer using the Consumer PULL workflow for compliant and efficient data retrieval Interoperability is ensured through the use of standard APIs and data formats making the system compatible with diverse platforms
+
+The EDC aligns with FAIR principles by ensuring findability through indexed metadata accessibility via controlled access policies interoperability through standardized frameworks and reusability by providing anonymized datasets for use in AI training and clinical research
+
+By integrating the EDC into the data integration center the demonstrator enhances the ability to securely manage and standardize patient data enabling real time clinical insights and advancing AI based healthcare solutions This creates a scalable FAIR compliant data exchange ecosystem that bridges healthcare providers researchers and industry partners fostering innovation and collaboration in healthcare
+
 ## Technologies used
 
 The FAIR data space enables information exchange between research and industry organizations.
 
-- Java
-- Spring Boot
+- Java 17
+- Spring Boot 3.3.1
 - React
 - Gaia-x standards
-- Docker Containers
+- Docker
 - Github
 - REST and OpenAPI
+- Heroku
 
 This application was generated using JHipster 8.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v8.6.0](https://www.jhipster.tech/documentation-archive/v8.6.0).
 
@@ -68,6 +109,9 @@ You will only need to run this command when dependencies change in [package.json
 
 We use npm scripts and [Webpack][] as our build system.
 
+In order to run app localy start postgresql docker container:
+`docker compose -f postgresql.yml up -d --force-recreate`
+
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
@@ -81,24 +125,6 @@ specifying a newer version in [package.json](package.json). You can also run `./
 Add the `help` flag on any command to see how you can use it. For example, `./npmw help update`.
 
 The `./npmw run` command will list all the scripts available to run for this project.
-
-### PWA Support
-
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
-
-The service worker initialization code is commented out by default. To enable it, uncomment the following code in `src/main/webapp/index.html`:
-
-```html
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function () {
-      console.log('Service Worker Registered');
-    });
-  }
-</script>
-```
-
-Note: [Workbox](https://developers.google.com/web/tools/workbox/) powers JHipster's service worker. It dynamically generates the `service-worker.js` file.
 
 ### Managing dependencies
 
@@ -253,7 +279,7 @@ When running Docker Desktop on macOS Big Sur or later, consider enabling experim
 
 For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
 
-## Continuous Integration (optional)
+## Continuous Integration
 
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
@@ -272,5 +298,3 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Jest]: https://facebook.github.io/jest/
 [Leaflet]: https://leafletjs.com/
 [DefinitelyTyped]: https://definitelytyped.org/
-
-docker compose -f postgresql.yml up -d --force-recreate
